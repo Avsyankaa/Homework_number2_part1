@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 struct Node {
-  int znach;
+  int value;
   Node *next;
 };
 struct List {
@@ -21,23 +21,35 @@ void fill(List &list, int integer1, Node *&last) {
 void outputting(Node *&curr) {
   do {
     if (curr->next == nullptr)
-      cout<< curr->znach<< endl;
+      cout << curr->value << endl;
     else
-      cout<< curr->znach << "->";
+      cout << curr->value << "->";
     curr = curr->next;
   } while (curr != nullptr);
 }
-int Menu (int & choise) {
-    cout<< "Select one of the operations:"<< endl;
-    cout<< "1.Print the list"<< endl;
-    cout<< "2.Add items to the list"<< endl;
-    cout<< "3.Delete item"<< endl;
-    cout<< "4.Find positions of iteams"<< endl;
-    cout<< "5.Replace the item on the other" << endl;
-    cout<< "6.Sort the list items" << endl;
-    cout<< "7.Сomplete the program"<< endl;
-    cin>> choise;
-    return choise;
+void Menu(int &choise, void outputting(Node *&), int flag, List &list) {
+  while (choise != 7) {
+    cout << "Select one of the operations:" << endl;
+    cout << "1.Print the list" << endl;
+    cout << "2.Add items to the list" << endl;
+    cout << "3.Delete item" << endl;
+    cout << "4.Find positions of iteams" << endl;
+    cout << "5.Replace the item on the other" << endl;
+    cout << "6.Sort the list items" << endl;
+    cout << "7.Сomplete the program" << endl;
+    cin >> choise;
+    switch (choise) {
+      case 1:
+        if (flag == 0)
+          cout << "List is empty" << endl;
+        else {
+          Node *curr = nullptr;
+          curr = list.head;
+          outputting(curr);
+        }
+        break;
+    }
+  }
 }
 int main(int argc, char *argv[]) {
   Node *last = nullptr;
@@ -77,18 +89,5 @@ int main(int argc, char *argv[]) {
     }
   }
   int choise = 0;
-  while (choise != 7) {
-    Menu (choise);
-    switch (choise) {
-      case 1:
-        if (flag == 0)
-          cout << "List is empty"<< endl;
-        else {
-          Node *curr = nullptr;
-          curr = list.head;
-          outputting(curr);
-        }
-        break;
-    }
-  }
+  Menu(choise, outputting, flag, list);
 }
